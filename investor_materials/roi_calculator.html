@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Automation Platform - ROI Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .results-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .savings-breakdown {
+            background: #e8f5e8;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .savings-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #bdc3c7;
+        }
+
+        .savings-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #27ae60;
+        }
+
+        .performance-comparison {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ffc107;
+        }
+
+        .comparison-item:last-child {
+            border-bottom: none;
+        }
+
+        .improvement {
+            background: #27ae60;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Enhanced Automation Platform</h1>
+            <p>ROI Calculator - Quantify Your Investment Returns</p>
+        </div>
+
+        <div class="content">
+            <div class="input-section">
+                <h2 class="section-title">📊 Your Current Operations</h2>
+                
+                <div class="input-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry" onchange="updateIndustryDefaults()">
+                        <option value="healthcare">Healthcare</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="financial">Financial Services</option>
+                        <option value="logistics">Logistics</option>
+                        <option value="retail">Retail</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="robots">Number of Robots/Automated Systems</label>
+                    <input type="number" id="robots" value="25" min="1" max="10000">
+                </div>
+
+                <div class="input-group">
+                    <label for="employees">Number of Employees</label>
+                    <input type="number" id="employees" value="500" min="1" max="100000">
+                </div>
+
+                <div class="input-group">
+                    <label for="revenue">Annual Revenue ($ millions)</label>
+                    <input type="number" id="revenue" value="100" min="1" max="10000">
+                </div>
+
+                <div class="input-group">
+                    <label for="incidents">Safety Incidents per Year</label>
+                    <input type="number" id="incidents" value="12" min="0" max="1000">
+                </div>
+
+                <div class="input-group">
+                    <label for="downtime">Downtime Hours per Month</label>
+                    <input type="number" id="downtime" value="48" min="0" max="720">
+                </div>
+
+                <div class="input-group">
+                    <label for="latency">Current System Response Time (ms)</label>
+                    <input type="number" id="latency" value="150" min="1" max="5000">
+                </div>
+
+                <button class="calculate-btn" onclick="calculateROI()">
+                    💰 Calculate ROI
+                </button>
+            </div>
+
+            <div class="results-section">
+                <h2 class="section-title">📈 ROI Analysis Results</h2>
+                
+                <div class="metric-card">
+                    <div class="metric-value" id="totalROI">$2.5M</div>
+                    <div class="metric-label">Annual Cost Savings</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="paybackPeriod">8 months</div>
+                    <div class="metric-label">Payback Period</div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-value" id="roiPercentage">420%</div>
+                    <div class="metric-label">3-Year ROI</div>
+                </div>
+
+                <div class="savings-breakdown">
+                    <h3 style="color: #27ae60; margin-bottom: 15px;">💰 Annual Savings Breakdown</h3>
+                    <div class="savings-item">
+                        <span>Safety Incident Reduction</span>
+                        <span id="safetySavings">$504,000</span>
+                    </div>
+                    <div class="savings-item">
+                        <span>Downtime Reduction</span>
+                        <span id="downtimeSavings">$960,000</span>
+                    </div>
+                    <div class="savings-item">
+                        <span>Efficiency Improvements</span>
+                        <span id="efficiencySavings">$750,000</span>
+                    </div>
+                    <div class="savings-item">
+                        <span>Operational Cost Reduction</span>
+                        <span id="operationalSavings">$286,000</span>
+                    </div>
+                    <div class="savings-item">
+                        <span><strong>Total Annual Savings</strong></span>
+                        <span id="totalSavings"><strong>$2,500,000</strong></span>
+                    </div>
+                </div>
+
+                <div class="performance-comparison">
+                    <h3 style="color: #f39c12; margin-bottom: 15px;">⚡ Performance Improvements</h3>
+                    <div class="comparison-item">
+                        <span>Response Time</span>
+                        <span class="improvement" id="latencyImprovement">1500x Faster</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Safety Incidents</span>
+                        <span class="improvement">85% Reduction</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>System Uptime</span>
+                        <span class="improvement">99.9% Uptime</span>
+                    </div>
+                    <div class="comparison-item">
+                        <span>Operational Efficiency</span>
+                        <span class="improvement">40% Increase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateIndustryDefaults() {
+            const industry = document.getElementById('industry').value;
+            const defaults = {
+                healthcare: {
+                    robots: 15,
+                    employees: 2500,
+                    revenue: 500,
+                    incidents: 8,
+                    downtime: 24,
+                    latency: 200
+                },
+                manufacturing: {
+                    robots: 50,
+                    employees: 1200,
+                    revenue: 300,
+                    incidents: 25,
+                    downtime: 72,
+                    latency: 150
+                },
+                financial: {
+                    robots: 10,
+                    employees: 800,
+                    revenue: 200,
+                    incidents: 2,
+                    downtime: 12,
+                    latency: 100
+                },
+                logistics: {
+                    robots: 75,
+                    employees: 600,
+                    revenue: 150,
+                    incidents: 18,
+                    downtime: 48,
+                    latency: 180
+                },
+                retail: {
+                    robots: 30,
+                    employees: 1500,
+                    revenue: 250,
+                    incidents: 12,
+                    downtime: 36,
+                    latency: 120
+                }
+            };
+
+            const industryDefaults = defaults[industry];
+            document.getElementById('robots').value = industryDefaults.robots;
+            document.getElementById('employees').value = industryDefaults.employees;
+            document.getElementById('revenue').value = industryDefaults.revenue;
+            document.getElementById('incidents').value = industryDefaults.incidents;
+            document.getElementById('downtime').value = industryDefaults.downtime;
+            document.getElementById('latency').value = industryDefaults.latency;
+
+            calculateROI();
+        }
+
+        function calculateROI() {
+            // Get input values
+            const robots = parseInt(document.getElementById('robots').value);
+            const employees = parseInt(document.getElementById('employees').value);
+            const revenue = parseFloat(document.getElementById('revenue').value) * 1000000; // Convert to actual dollars
+            const incidents = parseInt(document.getElementById('incidents').value);
+            const downtime = parseInt(document.getElementById('downtime').value);
+            const currentLatency = parseInt(document.getElementById('latency').value);
+            const industry = document.getElementById('industry').value;
+
+            // Industry-specific multipliers
+            const industryMultipliers = {
+                healthcare: { safety: 1.5, efficiency: 1.3, cost: 1.4 },
+                manufacturing: { safety: 1.2, efficiency: 1.4, cost: 1.1 },
+                financial: { safety: 0.8, efficiency: 1.6, cost: 1.3 },
+                logistics: { safety: 1.1, efficiency: 1.2, cost: 1.0 },
+                retail: { safety: 0.9, efficiency: 1.1, cost: 1.0 }
+            };
+
+            const multiplier = industryMultipliers[industry];
+
+            // Calculate savings
+            // Safety incident reduction (85% reduction)
+            const avgIncidentCost = 42000; // Average cost per workplace incident
+            const safetySavings = incidents * 0.85 * avgIncidentCost * multiplier.safety;
+
+            // Downtime reduction (60% reduction)
+            const hourlyRevenue = revenue / (365 * 24); // Revenue per hour
+            const downtimeSavings = downtime * 12 * 0.6 * hourlyRevenue;
+
+            // Efficiency improvements (40% improvement)
+            const efficiencyGain = revenue * 0.4 * multiplier.efficiency;
+            const efficiencySavings = efficiencyGain * 0.15; // 15% of efficiency gain as cost savings
+
+            // Operational cost reduction
+            const robotOperationalCost = 12000; // Annual cost per robot
+            const operationalSavings = robots * robotOperationalCost * 0.25 * multiplier.cost;
+
+            // Total savings
+            const totalAnnualSavings = safetySavings + downtimeSavings + efficiencySavings + operationalSavings;
+
+            // Platform cost (based on number of robots)
+            let platformCost;
+            if (robots <= 10) {
+                platformCost = 120000; // $10K/month
+            } else if (robots <= 100) {
+                platformCost = 600000; // $50K/month
+            } else {
+                platformCost = 2400000; // $200K/month
+            }
+
+            // Net savings
+            const netSavings = totalAnnualSavings - platformCost;
+            const paybackMonths = Math.ceil(platformCost / (netSavings / 12));
+            const threeYearROI = ((netSavings * 3) / platformCost) * 100;
+
+            // Performance improvements
+            const latencyImprovement = Math.round(currentLatency / 0.1);
+
+            // Update display
+            document.getElementById('totalROI').textContent = formatCurrency(netSavings);
+            document.getElementById('paybackPeriod').textContent = paybackMonths + ' months';
+            document.getElementById('roiPercentage').textContent = Math.round(threeYearROI) + '%';
+
+            document.getElementById('safetySavings').textContent = formatCurrency(safetySavings);
+            document.getElementById('downtimeSavings').textContent = formatCurrency(downtimeSavings);
+            document.getElementById('efficiencySavings').textContent = formatCurrency(efficiencySavings);
+            document.getElementById('operationalSavings').textContent = formatCurrency(operationalSavings);
+            document.getElementById('totalSavings').textContent = formatCurrency(totalAnnualSavings);
+
+            document.getElementById('latencyImprovement').textContent = latencyImprovement + 'x Faster';
+        }
+
+        function formatCurrency(amount) {
+            if (amount >= 1000000) {
+                return '$' + (amount / 1000000).toFixed(1) + 'M';
+            } else if (amount >= 1000) {
+                return '$' + (amount / 1000).toFixed(0) + 'K';
+            } else {
+                return '$' + amount.toFixed(0);
+            }
+        }
+
+        // Initialize with default calculation
+        calculateROI();
+    </script>
+</body>
+</html>

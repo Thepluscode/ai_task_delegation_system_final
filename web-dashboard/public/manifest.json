@@ -1,0 +1,21 @@
+{
+  "short_name": "Enterprise Dashboard",
+  "name": "Enterprise Automation Platform Dashboard",
+  "description": "Unified management dashboard for enterprise automation platform with real-time monitoring and service management",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1890ff",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en-US",
+  "dir": "ltr"
+}

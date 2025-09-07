@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: automation-platform
+  labels:
+    name: automation-platform
+    environment: production
+    version: v1.0.0
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: automation-config
+  namespace: automation-platform
+data:
+  DATABASE_URL: "postgresql://automation_user:automation_pass@postgres-service:5432/automation_db"
+  REDIS_URL: "redis://redis-service:6379"
+  ELASTICSEARCH_URL: "http://elasticsearch-service:9200"
+  INFLUXDB_URL: "http://influxdb-service:8086"
+  RABBITMQ_URL: "amqp://automation_user:automation_pass@rabbitmq-service:5672"
+  LOG_LEVEL: "info"
+  NODE_ENV: "production"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: automation-secrets
+  namespace: automation-platform
+type: Opaque
+data:
+  JWT_SECRET: eW91ci1qd3Qtc2VjcmV0LWtleQ==  # base64 encoded
+  POSTGRES_PASSWORD: YXV0b21hdGlvbl9wYXNz  # base64 encoded
+  REDIS_PASSWORD: YXV0b21hdGlvbl9yZWRpc19wYXNz  # base64 encoded
+  RABBITMQ_PASSWORD: YXV0b21hdGlvbl9wYXNz  # base64 encoded

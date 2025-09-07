@@ -1,0 +1,188 @@
+{
+  "services": {
+    "workflow-state-service": {
+      "name": "Workflow State Management",
+      "port": 8003,
+      "path": "services/workflow-state-service/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Advanced workflow orchestration with hierarchical state machines and event sourcing"
+    },
+    "robot-abstraction-protocol": {
+      "name": "Robot Abstraction Protocol",
+      "port": 8004,
+      "path": "services/robot-abstraction-protocol/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Universal robot integration supporting multiple manufacturers"
+    },
+    "ai-task-delegation": {
+      "name": "AI Task Delegation Service",
+      "port": 8005,
+      "path": "services/ai-task-delegation/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Intelligent task delegation with ML-powered agent selection"
+    },
+    "edge-computing": {
+      "name": "Edge Computing Architecture",
+      "port": 8006,
+      "path": "services/edge-computing/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Real-time decision making with sub-10ms latency and computer vision"
+    },
+    "security-compliance": {
+      "name": "Security and Compliance Framework",
+      "port": 8007,
+      "path": "services/security-compliance/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Enterprise-grade security with OAuth2, RBAC, and audit trails"
+    },
+    "monitoring-analytics": {
+      "name": "Monitoring and Analytics System",
+      "port": 8008,
+      "path": "services/monitoring-analytics/src/main.py",
+      "health_endpoint": "/health",
+      "api_prefix": "/api/v1",
+      "description": "Comprehensive monitoring with APM, performance analytics, and predictive insights"
+    }
+  },
+  "frontend": {
+    "name": "Enterprise Dashboard",
+    "port": 3000,
+    "path": "automation-ai-next",
+    "description": "Sophisticated frontend with real-time monitoring and workflow designer"
+  },
+  "api_endpoints": {
+    "workflow-state-service": {
+      "base_url": "http://localhost:8003",
+      "endpoints": {
+        "workflows": "/api/v1/workflows",
+        "state": "/api/v1/state",
+        "events": "/api/v1/events",
+        "websocket": "/ws/workflows"
+      }
+    },
+    "robot-abstraction-protocol": {
+      "base_url": "http://localhost:8004",
+      "endpoints": {
+        "robots": "/api/v1/robots",
+        "commands": "/api/v1/robots/{robot_id}/command",
+        "status": "/api/v1/robots/{robot_id}/status",
+        "capabilities": "/api/v1/capabilities",
+        "websocket": "/ws/robots"
+      }
+    },
+    "ai-task-delegation": {
+      "base_url": "http://localhost:8005",
+      "endpoints": {
+        "agents": "/api/v1/agents",
+        "tasks": "/api/v1/tasks",
+        "delegate": "/api/v1/tasks/delegate",
+        "performance": "/api/v1/performance",
+        "websocket": "/ws/delegation"
+      }
+    },
+    "edge-computing": {
+      "base_url": "http://localhost:8006",
+      "endpoints": {
+        "decisions": "/api/v1/decisions",
+        "vision": "/api/v1/vision/process",
+        "nodes": "/api/v1/nodes",
+        "performance": "/api/v1/performance",
+        "websocket": "/ws/edge"
+      }
+    },
+    "security-compliance": {
+      "base_url": "http://localhost:8007",
+      "endpoints": {
+        "auth": "/api/v1/auth",
+        "users": "/api/v1/users",
+        "audit": "/api/v1/audit",
+        "security": "/api/v1/security",
+        "websocket": "/ws/security"
+      }
+    },
+    "monitoring-analytics": {
+      "base_url": "http://localhost:8008",
+      "endpoints": {
+        "metrics": "/api/v1/metrics",
+        "services": "/api/v1/services",
+        "analytics": "/api/v1/analytics",
+        "insights": "/api/v1/analytics/insights",
+        "dashboard": "/api/v1/analytics/dashboard",
+        "websocket": "/ws/monitoring"
+      }
+    }
+  },
+  "integration": {
+    "service_discovery": {
+      "enabled": true,
+      "health_check_interval": 30,
+      "timeout": 5
+    },
+    "load_balancing": {
+      "enabled": false,
+      "strategy": "round_robin"
+    },
+    "circuit_breaker": {
+      "enabled": true,
+      "failure_threshold": 5,
+      "recovery_timeout": 60
+    },
+    "retry": {
+      "enabled": true,
+      "max_attempts": 3,
+      "backoff_factor": 0.3
+    }
+  },
+  "security": {
+    "cors": {
+      "allowed_origins": [
+        "http://localhost:3000",
+        "http://localhost:8000"
+      ],
+      "allowed_methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      "allowed_headers": ["*"],
+      "allow_credentials": true
+    },
+    "authentication": {
+      "jwt_secret": "your-secret-key-change-in-production",
+      "jwt_algorithm": "HS256",
+      "jwt_expiration": 3600
+    }
+  },
+  "monitoring": {
+    "metrics": {
+      "enabled": true,
+      "collection_interval": 10,
+      "retention_hours": 24
+    },
+    "logging": {
+      "level": "INFO",
+      "format": "json",
+      "file_rotation": true
+    },
+    "alerts": {
+      "enabled": true,
+      "channels": ["console", "webhook"]
+    }
+  },
+  "performance": {
+    "targets": {
+      "safety_critical_decisions": 1,
+      "critical_task_routing": 10,
+      "high_priority_tasks": 100,
+      "normal_task_processing": 500,
+      "robot_command_translation": 10,
+      "vision_processing": 50
+    },
+    "caching": {
+      "enabled": true,
+      "ttl": 300,
+      "max_size": 10000
+    }
+  }
+}

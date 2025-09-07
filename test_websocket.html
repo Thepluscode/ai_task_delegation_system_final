@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>IoT WebSocket Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .connected { background-color: #d4edda; color: #155724; }
+        .disconnected { background-color: #f8d7da; color: #721c24; }
+        .fallback { background-color: #fff3cd; color: #856404; }
+        .log { background-color: #f8f9fa; padding: 10px; height: 300px; overflow-y: scroll; border: 1px solid #ddd; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🌐 IoT WebSocket Connection Test</h1>
+    
+    <div id="status" class="status disconnected">
+        ❌ Disconnected
+    </div>
+    
+    <div>
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+        <button onclick="clearLog()">Clear Log</button>
+    </div>
+    
+    <h3>📊 Real-time Data:</h3>
+    <div id="data" style="background: #f0f0f0; padding: 10px; border-radius: 5px;">
+        No data received yet...
+    </div>
+    
+    <h3>📝 Connection Log:</h3>
+    <div id="log" class="log"></div>
+
+    <script>
+        let ws = null;
+        let reconnectAttempts = 0;
+        const maxReconnectAttempts = 3;
+        
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}<br>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateStatus(status, message) {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = `status ${status}`;
+            statusDiv.innerHTML = message;
+        }
+        
+        function connect() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                log('⚠️ Already connected');
+                return;
+            }
+            
+            log('🔄 Attempting to connect to IoT WebSocket...');
+            updateStatus('disconnected', '🔄 Connecting...');
+            
+            try {
+                ws = new WebSocket('ws://localhost:8011/api/v1/iot/realtime');
+                
+                ws.onopen = function(event) {
+                    log('✅ WebSocket connected successfully!');
+                    updateStatus('connected', '✅ Real-time Connected');
+                    reconnectAttempts = 0;
+                };
+                
+                ws.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        log(`📊 Received data: ${JSON.stringify(data).substring(0, 100)}...`);
+                        
+                        // Update data display
+                        const dataDiv = document.getElementById('data');
+                        dataDiv.innerHTML = `
+                            <strong>Timestamp:</strong> ${data.timestamp}<br>
+                            <strong>Connected Devices:</strong> ${data.metrics?.connected_devices || 'N/A'}<br>
+                            <strong>Uptime:</strong> ${data.metrics?.uptime_percentage?.toFixed(1) || 'N/A'}%<br>
+                            <strong>Response Time:</strong> ${data.metrics?.avg_response_time_ms || 'N/A'}ms<br>
+                            <strong>Edge Processing:</strong> ${data.metrics?.edge_processing_percentage?.toFixed(1) || 'N/A'}%
+                        `;
+                    } catch (error) {
+                        log(`❌ Error parsing message: ${error.message}`);
+                    }
+                };
+                
+                ws.onclose = function(event) {
+                    log(`🔌 WebSocket closed: ${event.code} - ${event.reason}`);
+                    updateStatus('disconnected', '❌ Disconnected');
+                    
+                    if (event.code !== 1000 && reconnectAttempts < maxReconnectAttempts) {
+                        reconnectAttempts++;
+                        log(`🔄 Attempting reconnect ${reconnectAttempts}/${maxReconnectAttempts}...`);
+                        setTimeout(connect, 2000);
+                    } else if (reconnectAttempts >= maxReconnectAttempts) {
+                        log('⚠️ Max reconnection attempts reached, would start fallback polling');
+                        updateStatus('fallback', '📡 Fallback Mode (Polling)');
+                        startFallbackPolling();
+                    }
+                };
+                
+                ws.onerror = function(error) {
+                    log(`❌ WebSocket error: ${error.type || 'Unknown error'}`);
+                    updateStatus('disconnected', '❌ Connection Error');
+                };
+                
+            } catch (error) {
+                log(`❌ Failed to create WebSocket: ${error.message}`);
+                updateStatus('disconnected', '❌ Connection Failed');
+            }
+        }
+        
+        function disconnect() {
+            if (ws) {
+                ws.close(1000, 'User disconnect');
+                ws = null;
+            }
+            stopFallbackPolling();
+            log('🛑 Disconnected by user');
+            updateStatus('disconnected', '❌ Disconnected');
+        }
+        
+        let fallbackInterval = null;
+        
+        function startFallbackPolling() {
+            log('📡 Starting fallback polling...');
+            
+            fallbackInterval = setInterval(async () => {
+                try {
+                    const response = await fetch('http://localhost:8011/api/v1/iot/metrics');
+                    if (response.ok) {
+                        const data = await response.json();
+                        log('📡 Fallback polling: Data received');
+                        
+                        // Update data display
+                        const dataDiv = document.getElementById('data');
+                        dataDiv.innerHTML = `
+                            <strong>Mode:</strong> Fallback Polling<br>
+                            <strong>Timestamp:</strong> ${data.timestamp}<br>
+                            <strong>Connected Devices:</strong> ${data.metrics?.connected_devices || 'N/A'}<br>
+                            <strong>Uptime:</strong> ${data.metrics?.uptime_percentage?.toFixed(1) || 'N/A'}%<br>
+                            <strong>Response Time:</strong> ${data.metrics?.avg_response_time_ms || 'N/A'}ms
+                        `;
+                    }
+                } catch (error) {
+                    log(`❌ Fallback polling failed: ${error.message}`);
+                }
+            }, 5000);
+        }
+        
+        function stopFallbackPolling() {
+            if (fallbackInterval) {
+                clearInterval(fallbackInterval);
+                fallbackInterval = null;
+                log('🛑 Stopped fallback polling');
+            }
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // Auto-connect on page load
+        window.onload = function() {
+            log('🌐 IoT WebSocket Test Page Loaded');
+            connect();
+        };
+    </script>
+</body>
+</html>

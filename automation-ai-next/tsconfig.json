@@ -1,0 +1,94 @@
+{
+  "compilerOptions": {
+    // Enhanced target for better performance and modern features
+    "target": "ES2022",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ES2022",
+      "webworker"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+
+    // Enhanced type checking for dashboard system
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // Performance optimizations
+    "forceConsistentCasingInFileNames": true,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+
+    // Advanced features support
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": true,
+
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@/components/*": ["./components/*"],
+      "@/lib/*": ["./lib/*"],
+      "@/app/*": ["./app/*"],
+      "@/types/*": ["./types/*"],
+      "@/styles/*": ["./styles/*"],
+      "@/hooks/*": ["./lib/hooks/*"],
+      "@/api/*": ["./lib/api/*"],
+      "@/utils/*": ["./lib/utils/*"],
+      "@/config/*": ["./config/*"],
+      "@/dashboard/*": ["./components/dashboard/*"],
+      "@/banking/*": ["./components/banking/*"],
+      "@/learning/*": ["./components/learning/*"],
+      "@/monitoring/*": ["./components/monitoring/*"],
+      "@/agent-selection/*": ["./components/agent-selection/*"],
+      "@/robot-abstraction/*": ["./components/robot-abstraction/*"],
+      "@/workflow-state/*": ["./components/workflow-state/*"],
+      "@/edge-computing/*": ["./components/edge-computing/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "**/*.js",
+    "**/*.jsx"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
+}

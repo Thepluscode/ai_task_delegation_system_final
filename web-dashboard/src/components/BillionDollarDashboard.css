@@ -1,0 +1,401 @@
+/* Billion Dollar Dashboard - Glassmorphism Design */
+
+.billion-dollar-dashboard {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  padding: 24px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.billion-dollar-dashboard::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  z-index: -1;
+}
+
+/* Glassmorphism Cards */
+.glassmorphism-card {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  box-shadow: 
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.glassmorphism-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 12px 40px 0 rgba(31, 38, 135, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Section */
+.hero-section {
+  margin-bottom: 32px;
+}
+
+.hero-card {
+  padding: 40px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.hero-title {
+  color: white !important;
+  margin: 0 !important;
+  font-size: 3.5rem !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.crown-icon {
+  color: #ffd700;
+  margin-right: 16px;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+}
+
+.valuation-display {
+  margin-top: 24px;
+}
+
+.valuation-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.valuation-amount {
+  color: #52c41a !important;
+  margin: 8px 0 0 0 !important;
+  font-size: 4rem !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 20px rgba(82, 196, 26, 0.5);
+}
+
+.live-metrics {
+  text-align: right;
+}
+
+.live-badge {
+  color: #52c41a !important;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.metric-item {
+  margin-bottom: 12px;
+}
+
+.metric-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+  display: block;
+  font-size: 0.8rem !important;
+}
+
+.metric-value {
+  color: white !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+/* KPI Cards */
+.kpi-section {
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  padding: 24px !important;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kpi-title {
+  color: white !important;
+  font-size: 0.9rem !important;
+  font-weight: 500 !important;
+}
+
+.kpi-statistic .ant-statistic-content {
+  color: white !important;
+}
+
+.kpi-statistic .ant-statistic-content-value {
+  font-size: 2.2rem !important;
+  font-weight: 700 !important;
+}
+
+.growth-indicator {
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  margin-left: 8px;
+}
+
+.growth-indicator.positive {
+  color: #52c41a !important;
+}
+
+.kpi-progress {
+  margin-top: 16px;
+}
+
+.kpi-subtitle {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-size: 0.8rem !important;
+  margin-top: 8px;
+}
+
+.fortune-icon {
+  color: #ffd700;
+  margin-left: 8px;
+}
+
+/* Revenue Card Specific */
+.revenue-card {
+  background: rgba(82, 196, 26, 0.1) !important;
+  border: 1px solid rgba(82, 196, 26, 0.3) !important;
+}
+
+/* Enterprise Card Specific */
+.enterprise-card {
+  background: rgba(24, 144, 255, 0.1) !important;
+  border: 1px solid rgba(24, 144, 255, 0.3) !important;
+}
+
+/* AI Card Specific */
+.ai-card {
+  background: rgba(250, 173, 20, 0.1) !important;
+  border: 1px solid rgba(250, 173, 20, 0.3) !important;
+}
+
+/* Savings Card Specific */
+.savings-card {
+  background: rgba(235, 47, 150, 0.1) !important;
+  border: 1px solid rgba(235, 47, 150, 0.3) !important;
+}
+
+/* Operations Section */
+.operations-section {
+  margin-bottom: 32px;
+}
+
+.operations-card {
+  padding: 32px !important;
+}
+
+.section-title {
+  color: white !important;
+  margin-bottom: 24px !important;
+  font-weight: 600 !important;
+}
+
+.operation-metric {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.metric-icon .ant-avatar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.8rem !important;
+  display: block;
+}
+
+.metric-number {
+  color: white !important;
+  margin: 4px 0 0 0 !important;
+  font-weight: 700 !important;
+}
+
+.efficiency-chart {
+  margin-top: 24px;
+}
+
+.efficiency-progress .ant-progress-bg {
+  height: 12px !important;
+}
+
+/* Market Card */
+.market-card {
+  padding: 32px !important;
+}
+
+.market-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.market-metric {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.market-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.8rem !important;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.market-value {
+  color: white !important;
+  margin: 0 !important;
+  font-weight: 800 !important;
+}
+
+.market-subtitle {
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.7rem !important;
+  margin-top: 4px;
+}
+
+/* Impact Section */
+.impact-section {
+  margin-bottom: 32px;
+}
+
+.impact-card {
+  padding: 32px !important;
+}
+
+.industry-impact {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.industry-header {
+  margin-bottom: 16px;
+}
+
+.industry-name {
+  color: white !important;
+  margin: 0 0 8px 0 !important;
+  font-size: 1.1rem !important;
+}
+
+.industry-savings {
+  color: #52c41a !important;
+  font-weight: 600 !important;
+}
+
+.industry-progress {
+  margin: 16px 0;
+}
+
+.industry-efficiency {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.9rem !important;
+}
+
+/* Action Section */
+.action-section {
+  margin-bottom: 32px;
+}
+
+.action-card {
+  padding: 32px !important;
+  text-align: center;
+}
+
+.action-button {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+  backdrop-filter: blur(10px);
+  border-radius: 12px !important;
+  height: 48px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.action-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .valuation-amount {
+    font-size: 3rem !important;
+  }
+  
+  .hero-card {
+    padding: 24px !important;
+  }
+  
+  .operation-metric {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .market-metrics {
+    gap: 16px;
+  }
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.live-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(82, 196, 26, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(82, 196, 26, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(82, 196, 26, 0.5); }
+}
+
+.valuation-amount {
+  animation: glow 3s infinite;
+}
